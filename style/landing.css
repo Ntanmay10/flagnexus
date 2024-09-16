@@ -82,6 +82,10 @@ nav ul li a {
     cursor: pointer;
 }
 
+.cta-btn,spam{
+    cursor:default;
+}
+
 .cta-btn:hover {
     background-color: #2ea043;
 }

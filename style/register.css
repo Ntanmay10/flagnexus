@@ -1,0 +1,126 @@
+/* Reset some basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Container for the registration box */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.register-box {
+    background-color: #161b22;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Headings */
+.register-box h1 {
+    color: #58a6ff;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.register-box p {
+    font-size: 1rem;
+    color: #8b949e;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    text-align: left;
+    font-weight: 500;
+    color: #c9d1d9;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    background-color: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 5px;
+    color: #c9d1d9;
+    font-size: 1rem;
+}
+
+/* Button styling */
+.btn {
+    padding: 12px 0;
+    background-color: #238636;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #2ea043;
+}
+
+/* Link to login */
+.login-link {
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Home button styling */
+.home-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #58a6ff;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.home-btn:hover {
+    background-color: #1f6feb;
+}

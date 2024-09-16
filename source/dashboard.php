@@ -1,3 +1,5 @@
+<?php session_start();
+$_SESSION['username'] = "Tanmay" ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,13 +14,13 @@
     <title>Flag Nexus - Capture the Flag!</title>
 
     <!-- Link to CSS -->
-    <link rel="stylesheet" href="style/landing.css">
+    <link rel="stylesheet" href="../style/landing.css">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="icon" href="assets/icon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/icon/favicon.ico" type="image/x-icon">
 
 </head>
 
@@ -26,21 +28,31 @@
     <div class="container">
         <header>
             <div class="logo">
-                <img src="assets/images/logo.png" alt="CTF Logo">
+                <img src="../assets/images/logo.png" alt="CTF Logo">
             </div>
+            <h1>
+                <?php
+                if (isset($_SESSION['username'])) {
+                    echo "
+                    Hello, " . $_SESSION['username'] . "
+                    ";
+                }
+                ?>
+            </h1>
             <nav>
                 <ul>
-                    <li><a href='./source/register.php'>Register</a></li>
-                    <li><a href='./source/login.php'>Login</a></li>
+                    <li><a href="#">Challenges</a></li>
+                    <li><a href="#">Leaderboard</a></li>
+                    <li><a href="logout.php">Logout</a></li>
                 </ul>
             </nav>
         </header>
 
         <section class="hero">
             <div class="hero-text">
-                <h1>Welcome to Flag Nexus!!!</h1>
+                <h1>CTF Game</h1>
                 <p>Prove your hacking skills in our Capture the Flag game. Compete with others, solve challenges, and climb the leaderboard!</p>
-                        <spam class='cta-btn'>Signup/Login to Get Started</spam>
+                <a href='#' class="cta-btn">Get Started</a>
             </div>
         </section>
 
