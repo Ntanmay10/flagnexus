@@ -1,5 +1,9 @@
-<?php session_start();
-$_SESSION['username'] = "Tanmay" ?>
+<?php session_start(); ?>
+<?php
+if (!isset($_SESSION['uname'])) {
+    header("location:login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,9 +36,9 @@ $_SESSION['username'] = "Tanmay" ?>
             </div>
             <h1>
                 <?php
-                if (isset($_SESSION['username'])) {
+                if (isset($_SESSION['uname'])) {
                     echo "
-                    Hello, " . $_SESSION['username'] . "
+                    Hello, " . $_SESSION['uname'] . "
                     ";
                 }
                 ?>
