@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Reset some basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+/* General body styling */
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    line-height: 1.6;
+}
+
+/* Link styling */
+a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #30363d;
+}
+
+.logo img {
+    height: 100px;
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    font-weight: 500;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(to right, #0d1117, #21262d);
+    border-bottom: 1px solid #30363d;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    color: #58a6ff;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+/* Quiz Section */
+.card-container {
+    display:block;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Add space between cards */
+    margin-top: 20px;
+}
+
+.card {
+    flex: 1 1 300px; /* Ensure cards take up available space and don't exceed 300px */
+    padding: 10px;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.question-block {
+    background-color: #161b22;
+    border: 2px solid #30363d;
+    padding: 20px;
+    text-align: center;
+    color: #c9d1d9;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.6);
+    transition: 0.2s ease;
+}
+
+.question-block:hover {
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.6);
+}
+
+.question-text {
+    font-size: 1.2rem;
+    color: #c9d1d9;
+    margin-bottom: 10px;
+}
+
+.answer-input {
+    width: calc(100% - 22px); /* Adjust width to fit padding and borders */
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border: 1px solid #30363d;
+    border-radius: 5px;
+    background-color: #0d1117;
+    color: #c9d1d9;
+}
+
+.submit-btn {
+    background-color: #238636;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: block;
+    margin: 20px auto; /* Center the button horizontally */
+}
+
+.submit-btn:hover {
+    background-color: #2ea043;
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 20px;
+}
+
+.feature {
+    flex: 1;
+    margin: 0 20px;
+    text-align: center;
+}
+
+.feature h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 1.1rem;
+    color: #8b949e;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #161b22;
+    color: #8b949e;
+    margin-top: 50px;
+}
+
+footer a {
+    color: #58a6ff;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1000px) {
+    .card {
+        flex: 1 1 45%;
+        /* Adjust card width to fit two cards per row on smaller screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        flex: 1 1 100%;
+        /* Ensure cards take full width on very small screens */
+    }
+}
+
+.hero-title {
+    font-size: 3rem;
+    color: #58a6ff;
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: #c9d1d9;
+    margin-bottom: 40px;
+}

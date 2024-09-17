@@ -18,7 +18,7 @@ if (!isset($_SESSION['uname'])) {
     <title>Flag Nexus - Capture the Flag!</title>
 
     <!-- Link to CSS -->
-    <link rel="stylesheet" href="../style/landing.css">
+    <link rel="stylesheet" href="../style/dashboard.css">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -45,7 +45,6 @@ if (!isset($_SESSION['uname'])) {
             </h1>
             <nav>
                 <ul>
-                    <li><a href="#">Challenges</a></li>
                     <li><a href="#">Leaderboard</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
@@ -53,12 +52,41 @@ if (!isset($_SESSION['uname'])) {
         </header>
 
         <section class="hero">
-            <div class="hero-text">
-                <h1>CTF Game</h1>
-                <p>Prove your hacking skills in our Capture the Flag game. Compete with others, solve challenges, and climb the leaderboard!</p>
-                <a href='#' class="cta-btn">Get Started</a>
+            <h2 class="hero-title">Test Your Knowledge!</h2>
+            <p class="hero-subtitle">Challenge yourself with this quick cybersecurity quiz!</p>
+
+            <div class="card-container">
+                <!-- First Question Block -->
+                <div class="question-block">
+                    <div class="question-text">
+                        What is the capital of France?
+                    </div>
+                    <input type="text" class="answer-input" placeholder="Your answer">
+                </div>
+
+                <!-- Second Question Block -->
+                <div class="question-block">
+                    <div class="question-text">
+                        Who developed the theory of relativity?
+                    </div>
+                    <input type="text" class="answer-input" placeholder="Your answer">
+                </div>
+
+                <!-- Third Question Block -->
+                <div class="question-block">
+                    <div class="question-text">
+                        What is the largest planet in our solar system?
+                    </div>
+                    <input type="text" class="answer-input" placeholder="Your answer">
+                </div>
+
+                <!-- Submit Button -->
+                <button class="submit-btn">Submit</button>
             </div>
+
         </section>
+
+
 
         <section class="features">
             <div class="feature">
