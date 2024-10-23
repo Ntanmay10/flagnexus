@@ -1,9 +1,18 @@
-<?php session_start(); ?>
-<?php
+<?php 
+session_start(); 
 if (!isset($_SESSION['uname'])) {
     header("location:login.php");
+    exit();
 }
+
+// Connect to database
+$con = mysqli_connect('localhost', 'root', '', 'flagnexus');
+if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,63 +46,40 @@ if (!isset($_SESSION['uname'])) {
             <h1>
                 <?php
                 if (isset($_SESSION['uname'])) {
-                    echo "
-                    Hello, " . $_SESSION['uname'] . "
-                    ";
+                    echo "Hello, " . htmlspecialchars($_SESSION['uname'], ENT_QUOTES, 'UTF-8');
                 }
                 ?>
             </h1>
             <nav>
                 <ul>
-                    <li><a href="#">Leaderboard</a></li>
+                    <li><a href="../leadboard.php">Leaderboard</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
             </nav>
         </header>
 
         <section class="hero">
-
             <h2 class="hero-title">Test Your Knowledge!</h2>
             <p class="hero-subtitle">Challenge yourself with this cybersecurity quiz!</p>
-            <form action="dashboard.php" method="post">
-                <div class="card-container">
-                    <?php
-                    $con = mysqli_connect('localhost', 'root', '');
-                    $db = mysqli_select_db($con, 'flagnexus');
-                    $query = "SELECT * FROM quiz";
-                    $result = mysqli_query($con, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-
-                        echo "
+            <div class="card-container">
+                <?php
+                $query = "SELECT * FROM quiz";
+                $result = mysqli_query($con, $query);
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $qid = htmlspecialchars($row['qid'], ENT_QUOTES, 'UTF-8');
+                    $question = htmlspecialchars($row['question'], ENT_QUOTES, 'UTF-8');
+                    echo "
                     <div class='question-block'>
-                    <div class='question-text'>
-                    $row[question]
-                    </div>
-                    <input type='text' class='answer-input' name='answer' placeholder='Your answer'>
-                    <button class='submit-btn' name='btnsub' value='$row[qid]'>Submit</button>
+                        <div class='question-text'>$question</div>
+                        <form action='dashboard.php' method='post'>
+                            <input type='hidden' name='qid' value='$qid'> <!-- Hidden field for the question ID -->
+                            <input type='text' class='answer-input' name='answer' placeholder='Your answer' required>
+                            <button class='submit-btn' name='btnsub'>Submit</button>
+                        </form>
                     </div>
                     ";
-                    }
-                    ?>
-                </div>
-            </form>
-
-        </section>
-
-
-
-        <section class="features">
-            <div class="feature">
-                <h2>Challenges</h2>
-                <p>Test your skills with various cybersecurity challenges, including web exploitation, cryptography, reverse engineering, and more.</p>
-            </div>
-            <div class="feature">
-                <h2>Leaderboard</h2>
-                <p>Compete with the best hackers around the world! Track your progress on the real-time leaderboard.</p>
-            </div>
-            <div class="feature">
-                <h2>Community</h2>
-                <p>Join our vibrant community of cybersecurity enthusiasts. Learn, share knowledge, and grow together.</p>
+                }
+                ?>
             </div>
         </section>
 
@@ -102,24 +88,19 @@ if (!isset($_SESSION['uname'])) {
             <p>Contact us: <a href="mailto:findtanmay10@gmail.com">findtanmay10@gmail.com</a></p>
         </footer>
     </div>
+
 </body>
 
 </html>
 
 <?php
 
-$con = mysqli_connect('localhost', 'root', '');
-$db = mysqli_select_db($con, 'flagnexus');
+if (isset($_POST['btnsub'])) {
+    $qid = $_POST['qid']; // Get the question ID from the hidden input
+    $uid = $_SESSION['uid']; // Get user ID from the session
+    $answer = trim($_POST['answer']); // Get the user's answer from the form
 
-if (isset($_REQUEST['btnsub'])) {
-    # code...
-    $qid = $_REQUEST['btnsub'];
-    $uid = $_SESSION['uid'];
-    $answer = $_REQUEST['answer'];
-
-    $query = "select * from quiz where qid='$qid' and answer='$answer'";
-    $result = mysqli_query($con, $query);
-
+    // Check if the user has already answered this question
     $checkAnsweredQuery = "SELECT * FROM user_answers WHERE uid='$uid' AND qid='$qid'";
     $checkAnsweredResult = mysqli_query($con, $checkAnsweredQuery);
 
@@ -128,13 +109,11 @@ if (isset($_REQUEST['btnsub'])) {
         echo "<script>alert('You have already answered this question!')</script>";
     } else {
         // Check if the answer is correct
-        $query = "SELECT * FROM quiz WHERE qid='$qid' AND answer='$answer'";
+        $query = "SELECT * FROM quiz WHERE qid='$qid' AND answer='" . mysqli_real_escape_string($con, $answer) . "'";
         $result = mysqli_query($con, $query);
 
         if (mysqli_num_rows($result) > 0) {
             // Correct answer, so update the user's score in the leaderboard
-
-            // First, insert a record into user_answers to mark the question as answered
             $insertAnswer = "INSERT INTO user_answers (uid, qid) VALUES ('$uid', '$qid')";
             mysqli_query($con, $insertAnswer);
 
@@ -155,9 +134,10 @@ if (isset($_REQUEST['btnsub'])) {
             echo "<script>alert('Correct! Your score has been updated.')</script>";
         } else {
             // Incorrect answer, show an alert
-            echo "<script>alert('Heyy foolish hacker, go learn more')</script>";
+            echo "<script>alert('Incorrect answer! Please try again.')</script>";
         }
     }
-    header("Refresh: 0");
+
+    header("Refresh: 0"); // Refresh the page to clear form submission
 }
 ?>

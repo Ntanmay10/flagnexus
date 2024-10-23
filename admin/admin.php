@@ -46,7 +46,7 @@ if (!isset($_SESSION['uname'])) {
             </h1>
             <nav>
                 <ul>
-                    <li><a href="leaderboard.php">Leaderboard</a></li>
+                    <li><a href="../leadboard.php">Leadboard</a></li>
                     <li><a href="../user/logout.php">Logout</a></li>
                 </ul>
             </nav>
