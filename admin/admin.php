@@ -19,6 +19,7 @@ if (!isset($_SESSION['uname'])) {
 
     <!-- Link to CSS -->
     <link rel="stylesheet" href="../style/landing.css">
+    <link rel="stylesheet" href="../style/dashboard.css">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -45,8 +46,7 @@ if (!isset($_SESSION['uname'])) {
             </h1>
             <nav>
                 <ul>
-                    <li><a href="#">Challenges</a></li>
-                    <li><a href="#">Leaderboard</a></li>
+                    <li><a href="leaderboard.php">Leaderboard</a></li>
                     <li><a href="../user/logout.php">Logout</a></li>
                 </ul>
             </nav>
@@ -54,9 +54,18 @@ if (!isset($_SESSION['uname'])) {
 
         <section class="hero">
             <div class="hero-text">
-                <h1>CTF Game</h1>
-                <p>Prove your hacking skills in our Capture the Flag game. Compete with others, solve challenges, and climb the leaderboard!</p>
-                <a href='#' class="cta-btn">Get Started</a>
+                <h1>Add new CTF Questions</h1>
+                <div class="card-container">
+                    <!-- First Question Block -->
+                    <form action="admin.php" method="post">
+                        <div class="question-block">
+                            <input type="text" name="question" class="answer-input" placeholder="Question">
+                            <input type="text" name="answer" class="answer-input" placeholder="Answer">
+                        </div>
+                        <!-- Submit Button -->
+                        <button class="submit-btn" name="btnadd">Add</button>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -83,3 +92,26 @@ if (!isset($_SESSION['uname'])) {
 </body>
 
 </html>
+
+<?php
+$con = mysqli_connect('localhost', 'root', '');
+mysqli_select_db($con, 'flagnexus');
+
+if (isset($_REQUEST['btnadd'])) {
+    $question = $_REQUEST['question'];
+    $answer = $_REQUEST['answer'];
+
+    $chk = "select * from quiz where question='$question' AND answer='$answer'";
+    $t = mysqli_query($con, $chk);
+    if (mysqli_num_rows($t) > 0) {
+        echo "<script>alert('Question duplication detected')</script>";
+    } else {
+        $sql = "INSERT INTO quiz (question, answer) VALUES ('$question', '$answer')";
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            header("refresh:0");
+        }
+    }
+}
+
+?>

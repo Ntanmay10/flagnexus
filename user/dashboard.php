@@ -52,37 +52,31 @@ if (!isset($_SESSION['uname'])) {
         </header>
 
         <section class="hero">
+
             <h2 class="hero-title">Test Your Knowledge!</h2>
-            <p class="hero-subtitle">Challenge yourself with this quick cybersecurity quiz!</p>
+            <p class="hero-subtitle">Challenge yourself with this cybersecurity quiz!</p>
+            <form action="dashboard.php" method="post">
+                <div class="card-container">
+                    <?php
+                    $con = mysqli_connect('localhost', 'root', '');
+                    $db = mysqli_select_db($con, 'flagnexus');
+                    $query = "SELECT * FROM quiz";
+                    $result = mysqli_query($con, $query);
+                    while ($row = mysqli_fetch_assoc($result)) {
 
-            <div class="card-container">
-                <!-- First Question Block -->
-                <div class="question-block">
-                    <div class="question-text">
-                        What is the capital of France?
+                        echo "
+                    <div class='question-block'>
+                    <div class='question-text'>
+                    $row[question]
                     </div>
-                    <input type="text" class="answer-input" placeholder="Your answer">
-                </div>
-
-                <!-- Second Question Block -->
-                <div class="question-block">
-                    <div class="question-text">
-                        Who developed the theory of relativity?
+                    <input type='text' class='answer-input' name='answer' placeholder='Your answer'>
+                    <button class='submit-btn' name='btnsub' value='$row[qid]'>Submit</button>
                     </div>
-                    <input type="text" class="answer-input" placeholder="Your answer">
+                    ";
+                    }
+                    ?>
                 </div>
-
-                <!-- Third Question Block -->
-                <div class="question-block">
-                    <div class="question-text">
-                        What is the largest planet in our solar system?
-                    </div>
-                    <input type="text" class="answer-input" placeholder="Your answer">
-                </div>
-
-                <!-- Submit Button -->
-                <button class="submit-btn">Submit</button>
-            </div>
+            </form>
 
         </section>
 
@@ -111,3 +105,59 @@ if (!isset($_SESSION['uname'])) {
 </body>
 
 </html>
+
+<?php
+
+$con = mysqli_connect('localhost', 'root', '');
+$db = mysqli_select_db($con, 'flagnexus');
+
+if (isset($_REQUEST['btnsub'])) {
+    # code...
+    $qid = $_REQUEST['btnsub'];
+    $uid = $_SESSION['uid'];
+    $answer = $_REQUEST['answer'];
+
+    $query = "select * from quiz where qid='$qid' and answer='$answer'";
+    $result = mysqli_query($con, $query);
+
+    $checkAnsweredQuery = "SELECT * FROM user_answers WHERE uid='$uid' AND qid='$qid'";
+    $checkAnsweredResult = mysqli_query($con, $checkAnsweredQuery);
+
+    if (mysqli_num_rows($checkAnsweredResult) > 0) {
+        // User has already answered this question
+        echo "<script>alert('You have already answered this question!')</script>";
+    } else {
+        // Check if the answer is correct
+        $query = "SELECT * FROM quiz WHERE qid='$qid' AND answer='$answer'";
+        $result = mysqli_query($con, $query);
+
+        if (mysqli_num_rows($result) > 0) {
+            // Correct answer, so update the user's score in the leaderboard
+
+            // First, insert a record into user_answers to mark the question as answered
+            $insertAnswer = "INSERT INTO user_answers (uid, qid) VALUES ('$uid', '$qid')";
+            mysqli_query($con, $insertAnswer);
+
+            // Check if the user exists in the leaderboard
+            $leaderboardQuery = "SELECT * FROM leadboard WHERE uid='$uid'";
+            $leaderboardResult = mysqli_query($con, $leaderboardQuery);
+
+            if (mysqli_num_rows($leaderboardResult) > 0) {
+                // User exists, update the score by adding 10 points
+                $updateScore = "UPDATE leadboard SET score = score + 10 WHERE uid='$uid'";
+                mysqli_query($con, $updateScore);
+            } else {
+                // User doesn't exist, insert a new record with a score of 10
+                $insertUser = "INSERT INTO leadboard (uid, score) VALUES ('$uid', 10)";
+                mysqli_query($con, $insertUser);
+            }
+
+            echo "<script>alert('Correct! Your score has been updated.')</script>";
+        } else {
+            // Incorrect answer, show an alert
+            echo "<script>alert('Heyy foolish hacker, go learn more')</script>";
+        }
+    }
+    header("Refresh: 0");
+}
+?>

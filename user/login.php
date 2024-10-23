@@ -57,7 +57,7 @@ if (isset($_REQUEST['btnlog'])) {
     $result = mysqli_query($con, $sql);
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_array($result);
-        if ($row['usertyp'] == 'admin') {
+        if ($row['usertyp'] == 'Admin') {
             $_SESSION['uid'] = $row['uid'];
             $_SESSION['uname'] = 'Admin';
             header('location:../admin/admin.php');
