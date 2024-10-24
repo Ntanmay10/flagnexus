@@ -46,7 +46,7 @@ if (!$con) {
             <h1>
                 <?php
                 if (isset($_SESSION['uname'])) {
-                    echo "Hello, " . htmlspecialchars($_SESSION['uname'], ENT_QUOTES, 'UTF-8');
+                    echo "Hello, " . $_SESSION['uname'] . "";
                 }
                 ?>
             </h1>
@@ -66,15 +66,12 @@ if (!$con) {
                 $query = "SELECT * FROM quiz";
                 $result = mysqli_query($con, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $qid = htmlspecialchars($row['qid'], ENT_QUOTES, 'UTF-8');
-                    $question = htmlspecialchars($row['question'], ENT_QUOTES, 'UTF-8');
                     echo "
                     <div class='question-block'>
-                        <div class='question-text'>$question</div>
+                        <div class='question-text'>$row[question]</div>
                         <form action='dashboard.php' method='post'>
-                            <input type='hidden' name='qid' value='$qid'> <!-- Hidden field for the question ID -->
                             <input type='text' class='answer-input' name='answer' placeholder='Your answer' required>
-                            <button class='submit-btn' name='btnsub'>Submit</button>
+                            <button class='submit-btn' name='btnsub' value=".$row['qid'].">Submit</button>
                         </form>
                     </div>
                     ";
@@ -95,10 +92,10 @@ if (!$con) {
 
 <?php
 
-if (isset($_POST['btnsub'])) {
-    $qid = $_POST['qid']; // Get the question ID from the hidden input
+if (isset($_REQUEST['btnsub'])) {
+    $qid = $_REQUEST['btnsub']; // Get the question ID from the hidden input
     $uid = $_SESSION['uid']; // Get user ID from the session
-    $answer = trim($_POST['answer']); // Get the user's answer from the form
+    $answer = $_REQUEST['answer']; // Get the user's answer from the form
 
     // Check if the user has already answered this question
     $checkAnsweredQuery = "SELECT * FROM user_answers WHERE uid='$uid' AND qid='$qid'";
@@ -109,7 +106,7 @@ if (isset($_POST['btnsub'])) {
         echo "<script>alert('You have already answered this question!')</script>";
     } else {
         // Check if the answer is correct
-        $query = "SELECT * FROM quiz WHERE qid='$qid' AND answer='" . mysqli_real_escape_string($con, $answer) . "'";
+        $query = "SELECT * FROM quiz WHERE qid='$qid' AND answer='$answer'";
         $result = mysqli_query($con, $query);
 
         if (mysqli_num_rows($result) > 0) {

@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php
 if (!isset($_SESSION['uname'])) {
-    header("location:login.php");
+    header("location:../user/login.php");
 }
 ?>
 <!DOCTYPE html>
@@ -46,6 +46,7 @@ if (!isset($_SESSION['uname'])) {
             </h1>
             <nav>
                 <ul>
+                    <li><a href="viewquiz.php">View All</a></li>
                     <li><a href="../leadboard.php">Leadboard</a></li>
                     <li><a href="../user/logout.php">Logout</a></li>
                 </ul>
