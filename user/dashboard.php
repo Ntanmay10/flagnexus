@@ -61,6 +61,7 @@ if (!$con) {
         <section class="hero">
             <h2 class="hero-title">Test Your Knowledge!</h2>
             <p class="hero-subtitle">Challenge yourself with this cybersecurity quiz!</p>
+            <p class="hero-subtitle">Flag Format: FLAGNEXUS{answer}</p>
             <div class="card-container">
                 <?php
                 $query = "SELECT * FROM quiz";
