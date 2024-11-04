@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 23, 2024 at 05:45 AM
+-- Generation Time: Nov 04, 2024 at 04:03 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -33,15 +33,7 @@ CREATE TABLE IF NOT EXISTS `leadboard` (
   `uid` int NOT NULL,
   `score` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`lid`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `leadboard`
---
-
-INSERT INTO `leadboard` (`lid`, `uid`, `score`) VALUES
-(1, 2, 20),
-(2, 3, 30);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -55,16 +47,16 @@ CREATE TABLE IF NOT EXISTS `quiz` (
   `question` varchar(600) NOT NULL,
   `answer` varchar(600) NOT NULL,
   PRIMARY KEY (`qid`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `quiz`
 --
 
 INSERT INTO `quiz` (`qid`, `question`, `answer`) VALUES
-(1, 'What is the default port number for http?', '43'),
-(2, 'What does SSL stands for?', 'Secure Socket Layer'),
-(3, 'Decode the hash....', 'you cracket it');
+(1, 'Find the secret message....RkxBR05FWFVTe2hhc2hfZGVjb2RlZH0=', 'FLAGNEXUS{hash_decoded}'),
+(3, 'What is the default port number for HTTP?', 'FLAGNEXUS{80}'),
+(4, 'Name a type of attack that tricks people into sending money or sensitive information to hackers.', 'FLAGNEXUS{phishing}');
 
 -- --------------------------------------------------------
 
@@ -81,16 +73,15 @@ CREATE TABLE IF NOT EXISTS `registration` (
   `usertyp` varchar(10) NOT NULL DEFAULT 'User',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `registration`
 --
 
 INSERT INTO `registration` (`uid`, `uname`, `email`, `passwd`, `usertyp`) VALUES
-(1, 'Admin', 'findtanmay10@gmail.com', 'tanmay2510', 'Admin'),
-(2, 'kalp18', 'pkalp1003@gmail.com', 'kalp1810', 'User'),
-(3, 'chixy17', 'chiragpatel17200@gmail.com', 'chixy1708', 'User');
+(1, 'Admin', 'tansecure25@gmail.com', 'tanmay2510', 'Admin'),
+(2, 'kalp18', 'pkalp1003@gmail.com', 'kalp1810', 'User');
 
 -- --------------------------------------------------------
 
@@ -104,17 +95,6 @@ CREATE TABLE IF NOT EXISTS `user_answers` (
   `qid` int NOT NULL,
   PRIMARY KEY (`uid`,`qid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `user_answers`
---
-
-INSERT INTO `user_answers` (`uid`, `qid`) VALUES
-(2, 1),
-(2, 2),
-(3, 1),
-(3, 2),
-(3, 3);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
