@@ -9,7 +9,7 @@
     <meta name="keywords" content="Cybersecurity, CTF, Capture the Flag, Hacking, Challenges">
     <meta name="author" content="Tanmay Naik">
 
-    <title>Flag Nexus - Capture the Flag!</title>
+    <title>Flag Nexus - Capture The Flag!</title>
 
     <!-- Link to CSS -->
     <link rel="stylesheet" href="style/landing.css">
