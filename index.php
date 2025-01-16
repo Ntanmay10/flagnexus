@@ -39,7 +39,7 @@
         <section class="hero">
             <div class="hero-text">
                 <h1>Welcome to Flag Nexus!!!</h1>
-                <p>Prove your hacking skills in our Capture the Flag game. Compete with others, solve challenges, and climb the leaderboard!</p>
+                <p>Prove your hacking skills in our Capture The Flag game. Compete with others, solve challenges, and climb the leaderboard!</p>
                         <spam class='cta-btn'>Signup/Login to Get Started</spam>
             </div>
         </section>
